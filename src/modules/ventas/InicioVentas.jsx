@@ -2,6 +2,7 @@ import { Outlet, Routes, Route, Link } from 'react-router-dom';
 import TablaClientes from './clientes/TablaClientes';
 import CrearCliente from './clientes/CrearCliente';
 import EditarCliente from './clientes/EditarCliente';
+import { useFadeLoad } from '../../hooks/useFadeLoad';
 
 const InicioVentas = () => {
 	return (
@@ -10,7 +11,7 @@ const InicioVentas = () => {
 				<Route index element={<InicioVentasLayout />} />
 				<Route path='tabla-clientes' element={<TablaClientes />} />
 				<Route path='crear-cliente' element={<CrearCliente />} />
-				<Route path='editar-cliente/:cif' />
+				<Route path='editar-cliente/:cif' element={<EditarCliente />} />
 				{/* <Route path='editar-cliente'>
 					<Route path=':cif' element={<EditarCliente />} />
 				</Route> */}
@@ -23,7 +24,7 @@ export default InicioVentas;
 
 const InicioVentasLayout = () => {
 	return (
-		<div className='container'>
+		<div className='container' ref={useFadeLoad()}>
 			<h1>Ventas</h1>
 			{/* <Link to='tabla-clientes'>  */}
 			{/* //con ruta relativa /*con ruta absoluta (más recomentable por legibilidad) */}

@@ -12,3 +12,8 @@ export function getClientes() {
 export const setClientes = cliente => {
 	customers.push(cliente);
 };
+
+export function getClienteByCif(cif) {
+	return customers.find(cliente => cliente.cif === cif);
+	// return customers.filter(cliente => cliente.cif === cif)[0];
+}

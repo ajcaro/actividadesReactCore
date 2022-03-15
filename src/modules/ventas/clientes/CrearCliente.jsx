@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useFadeLoad } from '../../../hooks/useFadeLoad';
 import { setClientes } from '../services/Clientes';
 
 const CrearCliente = () => {
@@ -25,7 +26,7 @@ const CrearCliente = () => {
 	};
 
 	return (
-		<div className='container'>
+		<div className='container' ref={useFadeLoad()}>
 			<div className='row'>
 				<div className='col-100'>
 					<h1>Nuevo cliente</h1>
