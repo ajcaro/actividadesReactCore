@@ -1,19 +1,30 @@
 import { NavLink } from 'react-router-dom';
 
-const NavMenu = () => {
+const NavMenu = ({ usuario, handleLogin, handleLogout }) => {
 	return (
 		<nav>
+			{usuario !== null ? (
+				<div>
+					<button onClick={handleLogout}>Logout</button>
+					{usuario.nombre}
+				</div>
+			) : (
+				<button onClick={handleLogin}>Login</button>
+			)}
 			<div>Logo</div>
 			<div>
 				<NavLink to='/' className={({ isActive }) => (isActive ? 'activo' : '')}>
 					Inicio
 				</NavLink>
-				<NavLink
-					to='/ventas'
-					className={({ isActive }) => (isActive ? 'activo' : '')}
-				>
-					Ventas
-				</NavLink>
+				{usuario?.rol === 'ventas' ? (
+					<NavLink
+						to='/ventas'
+						className={({ isActive }) => (isActive ? 'activo' : '')}
+					>
+						Ventas
+					</NavLink>
+				) : null}
+
 				<NavLink
 					to='/recursos-humanos'
 					className={({ isActive }) => (isActive ? 'activo' : '')}
