@@ -1,9 +1,8 @@
+import React from 'react';
+import CreateBudget from './pages/CreateBudget';
+
 function App() {
-  return (
-    <div>
-      
-    </div>
-  );
+	return <CreateBudget />;
 }
 
 export default App;
