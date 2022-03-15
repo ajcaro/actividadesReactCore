@@ -10,9 +10,10 @@ const InicioVentas = () => {
 				<Route index element={<InicioVentasLayout />} />
 				<Route path='tabla-clientes' element={<TablaClientes />} />
 				<Route path='crear-cliente' element={<CrearCliente />} />
-				<Route path='editar-cliente'>
+				<Route path='editar-cliente/:cif' />
+				{/* <Route path='editar-cliente'>
 					<Route path=':cif' element={<EditarCliente />} />
-				</Route>
+				</Route> */}
 			</Route>
 		</Routes>
 	);
