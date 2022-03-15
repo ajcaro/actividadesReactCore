@@ -1,9 +1,7 @@
+import Houses from './pages/Houses';
+
 function App() {
-  return (
-    <div>
-      
-    </div>
-  );
+	return <Houses />;
 }
 
 export default App;
