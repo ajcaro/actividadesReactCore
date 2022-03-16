@@ -87,7 +87,7 @@ const TablaClientes = () => {
 										<td>{cliente.nombre}</td>
 										<td>
 											<Link
-												to={`/ventas/editar-cliente/${cliente.cif}`}
+												to={`/ventas/editar-cliente/${cliente._id}`}
 											>
 												Visualizar
 											</Link>

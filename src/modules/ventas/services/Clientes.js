@@ -13,9 +13,9 @@ export const searchClientes = term => {
 };
 
 export const setClientes = cliente => {
-	customers.push(cliente);
+	return axios.post(clientesEndPoint, cliente);
 };
 
-export function getClienteByCif(cif) {
-	return customers.find(cliente => cliente.cif === cif);
+export function getClienteById(_id) {
+	return axios.get(`${clientesEndPoint}/${_id}`);
 }

@@ -11,7 +11,7 @@ const InicioVentas = () => {
 				<Route index element={<InicioVentasLayout />} />
 				<Route path='tabla-clientes' element={<TablaClientes />} />
 				<Route path='crear-cliente' element={<CrearCliente />} />
-				<Route path='editar-cliente/:cif' element={<EditarCliente />} />
+				<Route path='editar-cliente/:_id' element={<EditarCliente />} />
 				{/* <Route path='editar-cliente'>
 					<Route path=':cif' element={<EditarCliente />} />
 				</Route> */}

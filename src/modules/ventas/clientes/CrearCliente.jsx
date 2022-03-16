@@ -6,7 +6,8 @@ import { setClientes } from '../services/Clientes';
 const CrearCliente = () => {
 	const [values, setValues] = useState({
 		nombre: '',
-		cif: '',
+		actividades: '',
+		direccion: '',
 		localidad: '',
 	});
 
@@ -21,8 +22,14 @@ const CrearCliente = () => {
 
 	const handleOnSubmit = e => {
 		e.preventDefault();
-		setClientes(values);
-		navigate('/ventas/tabla-clientes'); //Navegación programática
+		setClientes(values)
+			.then(res => {
+				console.log(res.data);
+				navigate('/ventas/tabla-clientes'); //Navegación programática
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	};
 
 	return (
@@ -44,11 +51,22 @@ const CrearCliente = () => {
 						</div>
 						<div className='row'>
 							<div className='col-100'>
-								<label>Cif</label>
+								<label>actividades</label>
 								<input
 									type='text'
-									name='cif'
-									value={values.cif}
+									name='actividades'
+									value={values.actividades}
+									onChange={handleOnChange}
+								/>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-100'>
+								<label>direccion</label>
+								<input
+									type='text'
+									name='direccion'
+									value={values.direccion}
 									onChange={handleOnChange}
 								/>
 							</div>
