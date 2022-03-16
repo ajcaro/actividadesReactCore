@@ -1,14 +1,49 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFadeLoad } from '../../../hooks/useFadeLoad';
-import { getClientes } from '../services/Clientes';
+import { getClientes, searchClientes } from '../services/Clientes';
 
 const TablaClientes = () => {
 	const [clientes, setClientes] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [form, setForm] = useState({
+		term: '',
+	});
+
+	// useEffect(() => {
+	// 	setIsLoading(() => true); // Todos los registros sin paginar
+	// 	getClientes()
+	// 		.then(res => {
+	// 			setIsLoading(() => false);
+	// 			setClientes(res.data.clientes);
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err);
+	// 		});
+
+	// 	//setClientes(() => getClientes());
+	// }, []);
+
+	const handleOnChange = ({ target }) => {
+		setForm({ term: target.value });
+	};
 
 	useEffect(() => {
-		setClientes(() => getClientes());
-	}, [clientes]);
+		if (form.term.length > 0) {
+			setIsLoading(() => true);
+			searchClientes(form.term)
+				.then(res => {
+					setClientes(() => res.data.clientes);
+					setIsLoading(() => false);
+				})
+				.catch(err => {
+					console.log(err);
+					setIsLoading(() => false);
+				});
+		} else {
+			setClientes([]);
+		}
+	}, [form.term]);
 
 	return (
 		<div className='container' ref={useFadeLoad()}>
@@ -22,6 +57,18 @@ const TablaClientes = () => {
 					<Link to='/ventas/crear-cliente'>
 						<button>Nuevo Cliente</button>
 					</Link>
+
+					<div className='row'>
+						<form>
+							<input
+								type='search'
+								name='term'
+								value={form.term}
+								onChange={handleOnChange}
+							/>
+						</form>
+					</div>
+
 					<table>
 						<thead>
 							<tr>
@@ -30,18 +77,24 @@ const TablaClientes = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{clientes.map(cliente => (
-								<tr key={cliente.cif}>
-									<td>{cliente.nombre}</td>
-									<td>
-										<Link
-											to={`/ventas/editar-cliente/${cliente.cif}`}
-										>
-											Visualizar
-										</Link>
-									</td>
+							{isLoading ? (
+								<tr>
+									<td colSpan={3}>Cargando ....</td>
 								</tr>
-							))}
+							) : (
+								clientes.map(cliente => (
+									<tr key={cliente._id}>
+										<td>{cliente.nombre}</td>
+										<td>
+											<Link
+												to={`/ventas/editar-cliente/${cliente.cif}`}
+											>
+												Visualizar
+											</Link>
+										</td>
+									</tr>
+								))
+							)}
 						</tbody>
 					</table>
 				</div>

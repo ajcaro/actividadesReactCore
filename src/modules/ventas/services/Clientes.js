@@ -1,13 +1,16 @@
-const customers = [
-	{ nombre: 'Iberdrola', cif: 'A12345678', localidad: 'Bilbao' },
-	{ nombre: 'Iberdrola Gas', cif: 'A76876866', localidad: 'Bilbao' },
-	{ nombre: 'Jazztel', cif: 'A87654321', localidad: 'Madrid' },
-	{ nombre: 'La Caixa', cif: 'A4444444', localidad: 'Barcelona' },
-];
+import axios from 'axios';
+
+const clientesEndPoint = 'http://localhost:8080/clientes';
+
+const customers = [];
 
 export function getClientes() {
-	return customers;
+	return axios.get(clientesEndPoint); // Devuelve una promesa
 }
+
+export const searchClientes = term => {
+	return axios.get(`${clientesEndPoint}/search/${term}`);
+};
 
 export const setClientes = cliente => {
 	customers.push(cliente);
@@ -15,5 +18,4 @@ export const setClientes = cliente => {
 
 export function getClienteByCif(cif) {
 	return customers.find(cliente => cliente.cif === cif);
-	// return customers.filter(cliente => cliente.cif === cif)[0];
 }

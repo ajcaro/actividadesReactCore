@@ -11,7 +11,7 @@ const InicioVentas = React.lazy(() => import('./modules/ventas/InicioVentas'));
 const InicioRRHH = React.lazy(() => import('./modules/rrhh/InicioRRHH'));
 
 function App() {
-	const [usuario, setUsuario] = useState(null);
+	const [usuario, setUsuario] = useState({ nombre: 'Antonio jose', rol: 'ventas' });
 	const navigate = useNavigate();
 
 	const handleLogin = () => {
