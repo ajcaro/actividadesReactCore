@@ -19,3 +19,11 @@ export const setClientes = cliente => {
 export function getClienteById(_id) {
 	return axios.get(`${clientesEndPoint}/${_id}`);
 }
+
+export const editCliente = (_id, cliente) => {
+	return axios.put(`${clientesEndPoint}/${_id}`, cliente);
+};
+
+export const deleteCliente = _id => {
+	return axios.delete(`${clientesEndPoint}/${_id}`);
+};

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFadeLoad } from '../../../hooks/useFadeLoad';
-import { getClientes, searchClientes } from '../services/Clientes';
+import { deleteCliente, getClientes, searchClientes } from '../services/Clientes';
 
 const TablaClientes = () => {
 	const [clientes, setClientes] = useState([]);
@@ -26,6 +26,16 @@ const TablaClientes = () => {
 
 	const handleOnChange = ({ target }) => {
 		setForm({ term: target.value });
+	};
+
+	const handleDeleteCliente = _id => {
+		deleteCliente(_id)
+			.then(res => {
+				console.log('res: ', res);
+				setClientes([]);
+				setForm({ term: '' });
+			})
+			.catch(err => console.log('err: ', err));
 	};
 
 	useEffect(() => {
@@ -74,6 +84,7 @@ const TablaClientes = () => {
 							<tr>
 								<th>Nombre</th>
 								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -91,6 +102,13 @@ const TablaClientes = () => {
 											>
 												Visualizar
 											</Link>
+										</td>
+										<td
+											onClick={() =>
+												handleDeleteCliente(cliente._id)
+											}
+										>
+											Eliminar
 										</td>
 									</tr>
 								))

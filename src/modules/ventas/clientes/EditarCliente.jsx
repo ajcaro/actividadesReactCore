@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useFadeLoad } from '../../../hooks/useFadeLoad';
-import { getClienteById } from '../services/Clientes';
+import { editCliente, getClienteById } from '../services/Clientes';
 
 const EditarCliente = () => {
-	//const navigate = useNavigate();
+	const navigate = useNavigate();
 	const params = useParams();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [values, setValues] = useState({
@@ -36,7 +36,19 @@ const EditarCliente = () => {
 		});
 	};
 
-	const handleOnSubmit = e => {};
+	const handleIsEditMode = e => {
+		e.preventDefault();
+		setIsEditMode(prev => !prev);
+	};
+	const handleOnSubmit = e => {
+		e.preventDefault();
+		editCliente(params._id, values)
+			.then(res => {
+				console.log(res);
+				navigate('/ventas/tabla-clientes');
+			})
+			.catch(err => console.log(err));
+	};
 	return (
 		<div className='container' ref={useFadeLoad()}>
 			<div className='row'>
@@ -92,10 +104,27 @@ const EditarCliente = () => {
 							</div>
 						</div>
 						<div className='row end'>
-							<Link to='/ventas/tabla-clientes'>
-								<button className='outline'>Cancelar</button>
-							</Link>
-							<button type='submit'>Actualizar</button>
+							{isEditMode ? (
+								<>
+									<button
+										type='button'
+										className='outline'
+										onClick={handleIsEditMode}
+									>
+										Cancelar
+									</button>
+									<button type='submit'>Guardar Cambios</button>
+								</>
+							) : (
+								<>
+									<Link to='/ventas/tabla-clientes'>
+										<button className='outline'>Cancelar</button>
+									</Link>
+									<button type='button' onClick={handleIsEditMode}>
+										Editar
+									</button>
+								</>
+							)}
 						</div>
 					</form>
 				</div>
