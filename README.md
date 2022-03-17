@@ -1,8 +1,8 @@
 # Testing con Cypress (testing integracion)
 
-```
 ## Instalacion
 
+```
 npm install cypress --save-dev
 ```
 
@@ -13,7 +13,7 @@ Añadir script en package.json
 "cypress:open": "cypress open"
 ```
 
-## Ejecicion
+## Ejecucion
 
 ```
 Ejecutar con cypress:open
